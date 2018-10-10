@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 
@@ -12,19 +12,29 @@ import JSON from './db.json';
 import Newslist from './components/news_list';
 
 class App extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
-            news:JSON
+            news: JSON,
+            filtered: JSON
         }
     }
 
-    render(){
-        return(
+    filterNews(keywords) {
+        let filtered = this.state.news.filter((item)=>{
+            return item.title.indexOf(keywords) > -1;
+        })
+        
+        //ES6 knows that the key has the same name for the value
+        this.setState({filtered})
+    }
+
+    render() {
+        return (
             <div>
-                <Header/>
-                <Newslist news={this.state.news}/>
+                <Header newsSearch={keywords => this.filterNews(keywords)} />
+                <Newslist news={this.state.filtered} />
             </div>
 
 
@@ -34,4 +44,4 @@ class App extends Component {
 
 }
 
-ReactDOM.render(<App/>,document.querySelector('#root'));
+ReactDOM.render(<App />, document.querySelector('#root'));

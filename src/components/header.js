@@ -15,11 +15,13 @@ class Header extends Component {
 
         this.state = {
             keywords:''
-        }        
+        }     
+          
     }
 
     inputChange(event){
         this.setState({keywords:event.target.value})
+        this.props.newsSearch(event.target.value)
     }
 
     render() {
